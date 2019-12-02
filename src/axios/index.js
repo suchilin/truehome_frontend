@@ -23,6 +23,7 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   async error => {
+    console.log('ERROR RESP', error);
     if (error.response.status !== 401) {
       return new Promise((resolve, reject) => {
         reject(error);
@@ -35,7 +36,6 @@ axiosInstance.interceptors.response.use(
       let response = await axios.post(apiEndpoint + '/token/refresh/', {
         refresh: refresh_token,
       });
-      console.log('RESPONSE REFRESH', response);
       localStorage.setItem('access_token', response.data.access);
       config.headers['Authorization'] = `Bearer ${response.data.access}`;
       return axios.request(config);

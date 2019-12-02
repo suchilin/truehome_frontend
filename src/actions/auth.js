@@ -23,7 +23,9 @@ export const loginUser = data => {
       let token = response && response.data ? response.data.access : '';
       dispatch(userSuccess(token));
     } catch (error) {
-      dispatch(userFailure(error.response.data));
+      let newError =
+        error.response && error.response.data ? error.response.data : error;
+      dispatch(userFailure(newError));
     }
   };
 };
